@@ -1,44 +1,22 @@
 /* eslint-disable linebreak-style */
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, NavLink, Switch,
+  BrowserRouter as Router, Route, Switch, NavLink,
 } from 'react-router-dom';
-import Counter from '../containers/counter';
-import Controls from '../containers/controls';
+// import Nav from './navbar';
+import AddPost from '../containers/newpost';
+import Post from '../containers/post';
+import Posts from '../containers/posts';
 
 const Nav = (props) => {
   return (
     <nav>
-      <ul>
-        <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/about">About</NavLink></li>
-        <li><NavLink to="/test/id1">test id1</NavLink></li>
-        <li><NavLink to="/test/id2">test id2</NavLink></li>
-      </ul>
+      <NavLink to="/">My Super Awesome Blog</NavLink>
+      <NavLink to="/posts/new">New Post</NavLink>
     </nav>
   );
 };
 
-const FallBack = (props) => {
-  return <div>URL Not Found</div>;
-};
-
-const Test = (props) => {
-  return <div> ID: {props.match.params.id} </div>;
-};
-
-const About = (props) => {
-  return <div> All there is to know about me </div>;
-};
-const Welcome = (props) => {
-  return (
-    <div>
-      <Counter />
-      <Controls />
-      Welcome
-    </div>
-  );
-};
 
 const App = (props) => {
   return (
@@ -46,10 +24,10 @@ const App = (props) => {
       <div>
         <Nav />
         <Switch>
-          <Route exact path="/" component={Welcome} />
-          <Route path="/about" component={About} />
-          <Route exact path="/test/:id" component={Test} />
-          <Route component={FallBack} />
+          <Route exact path="/" component={Posts} />
+          <Route path="/posts/new" component={AddPost} />
+          <Route path="/posts/:postID" component={Post} />
+          <Route render={() => (<div>post not found </div>)} />
         </Switch>
       </div>
     </Router>
