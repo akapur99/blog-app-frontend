@@ -16,27 +16,54 @@ body, html {
     color: white;
 }
 
-nav {
-    background-color: crimson;
-    margin-top: 0;
-    padding-top: 0;
-    margin-bottom: 5;
-    height: 4vw;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-
-    * {
-        text-decoration: none;
-        color: pink;
-    }
+nav * {
+    text-decoration: none;
+    color: rgb(241, 206, 212);
 }
 
 .postList {
+    margin-top: 4vw;
+    padding: 4;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-evenly;
+    flex-flow: row wrap;
+    justify-content: space-around;
     align-items: center;
+
+    .card {
+        margin: 1vw;
+        width: '40%';
+        margin-bottom: '20px';
+        margin-left: '10px';
+        margin-right: '10px';
+    }
 }
 
+// .media {
+//     // height: 0;
+//     padding-top: '56.25%';
+// }
+.actions {
+    display: 'flex';
+}  
+.avatar {
+    background-color: crimson;
+}
+
+.navDiv{
+    width: 100%;
+}
+.pastA{
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.container{
+    display: 'flex';
+    flex-wrap: 'wrap';
+}
+// .textField{
+//     marginLeft: theme.spacing.unit,
+//     marginRight: theme.spacing.unit,
+// }

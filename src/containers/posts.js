@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { fetchPosts } from '../actions/index';
+import Preview from './preview';
 
 class Posts extends Component {
   constructor(props) {
@@ -10,8 +11,6 @@ class Posts extends Component {
   }
 
   componentDidMount = () => {
-    console.log('Mounted');
-
     this.props.fetchPosts();
   }
 
@@ -20,14 +19,15 @@ class Posts extends Component {
       return (
         this.props.posts.all.map((item, key) => {
           console.log(item, key);
-          const nlink = `/posts/${item.id}`;
+          // const nlink = `/posts/${item.id}`;
           return (
-            <div className="postPreview" key={item.id}>
-              <Link to={nlink}>
-                <img alt="" src={item.cover_url} />
-                <span>{item.title}</span> <span>{item.tags}</span>
-              </Link>
-            </div>
+            // <div className="postPreview" key={item.id}>
+            //   <Link to={nlink}>
+            //     <img alt="" src={item.cover_url} />
+            //     <span>{item.title}</span> <span>{item.tags}</span>
+            //   </Link>
+            // </div>
+            <Preview post={item} key={item.id} />
           );
         })
       );

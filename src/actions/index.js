@@ -29,7 +29,7 @@ export function fetchPosts() { /* axios get */
 
 export function createPost(post, history) { /* axios post */
   const fields = {
-    title: post.title, contents: post.contents, tags: post.tags, cover_url: post.cover_url,
+    title: post.title, content: post.content, tags: post.tags, cover_url: post.cover_url,
   };
 
   return (dispatch) => {

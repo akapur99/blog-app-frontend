@@ -10,7 +10,7 @@
     "test": "eslint src/**.js",
     "build": "yarn clean & SET WEBPACK_ENV=production& webpack --colors",
     "clean": "rimraf dist",
-    "deploy": "yarn build & surge -p dist -d abhi-cs52-starter-redux.surge.sh & yarn clean"
+    "deploy": "yarn build & surge -p dist -d abhi-redux-blog.surge.sh & yarn clean"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -42,6 +42,8 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "jquery": "^3.3.1",
     "lodash.debounce": "^4.0.8",
