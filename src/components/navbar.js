@@ -12,7 +12,7 @@ const Nav = (props) => {
     <div className="navDiv">
       <AppBar position="static" color="default" className={classes.nav}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" className={classes.header}>
+          <Typography variant="h6" color="secondary" className={classes.header}>
             Abhi Blog CS52 — 19S
           </Typography>
           <div className={classes.menu}>

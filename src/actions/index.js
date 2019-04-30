@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import axios from 'axios';
 
 const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
