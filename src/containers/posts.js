@@ -32,9 +32,6 @@ class Posts extends Component {
   }
 
   render() {
-    console.log('Props');
-    console.log(this.props.posts);
-
     return (
       <div className="postList">
         {this.renderPosts()}

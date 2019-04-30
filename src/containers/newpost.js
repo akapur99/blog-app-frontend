@@ -19,22 +19,6 @@ class AddPost extends Component {
     };
   }
 
-  onTitleChange = (event) => {
-    this.setState({ title: event.target.value });
-  }
-
-  onTagsChange = (event) => {
-    this.setState({ tags: event.target.value });
-  }
-
-  onContentChange = (event) => {
-    this.setState({ content: event.target.value });
-  }
-
-  onUrlChange = (event) => {
-    this.setState({ cover_url: event.target.value });
-  }
-
     onAddPost = () => {
       if (this.state.title === '' || this.state.content === '') {
         alert('You still have to fill out some fields...');

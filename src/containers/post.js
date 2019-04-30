@@ -137,7 +137,18 @@ class Post extends Component {
           </CardContent>
           <CardActions className="actions" disableActionSpacing>
             <Button onClick={() => { this.deletePost(this.props.match.params.postID); }} size="small">Delete</Button>
-            <Button onClick={() => { this.setState({ isEditing: true }); }} size="small">Edit</Button>
+            <Button onClick={() => {
+              this.setState({
+                isEditing: true,
+                title: currentPost.title,
+                tags: currentPost.tags,
+                content: currentPost.content,
+                cover_url: currentPost.cover_url,
+              });
+            }}
+              size="small"
+            >Edit
+            </Button>
           </CardActions>
         </Card>
       );
