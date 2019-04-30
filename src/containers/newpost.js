@@ -19,41 +19,46 @@ class AddPost extends Component {
   }
 
   onTitleChange = (event) => {
-    console.log(event.target.value);
     this.setState({ title: event.target.value });
   }
 
   onTagsChange = (event) => {
-    console.log(event.target.value);
     this.setState({ tags: event.target.value });
   }
 
   onContentChange = (event) => {
-    console.log(event.target.value);
     this.setState({ content: event.target.value });
   }
 
   onUrlChange = (event) => {
-    console.log(event.target.value);
     this.setState({ cover_url: event.target.value });
   }
 
     onAddPost = () => {
-      // this.props.onAddNote(this.state.title);
-      const post = {
-        title: this.state.title,
-        tags: this.state.tags,
-        content: this.state.content,
-        cover_url: this.state.cover_url,
-      };
-      this.props.createPost(post, this.props.history);
+      if (this.state.title === '' || this.state.content === '') {
+        alert('You still have to fill out some fields...');
+      } else {
+        let u;
+        if (this.state.cover_url === '') {
+          u = 'https://images.unsplash.com/photo-1484312152213-d713e8b7c053?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
+        } else {
+          u = this.state.cover_url;
+        }
+        const post = {
+          title: this.state.title,
+          tags: this.state.tags,
+          content: this.state.content,
+          cover_url: u,
+        };
+        this.props.createPost(post, this.props.history);
 
-      this.setState({
-        title: '',
-        tags: '',
-        content: '',
-        cover_url: '',
-      });
+        this.setState({
+          title: '',
+          tags: '',
+          content: '',
+          cover_url: '',
+        });
+      }
     }
 
     handleChange = name => (event) => {
@@ -65,16 +70,10 @@ class AddPost extends Component {
     render() {
       return (
         <div className="addBar">
-          {/* <input onChange={this.onTitleChange} value={this.state.title} />
-          <input onChange={this.onTagsChange} value={this.state.tags} />
-          <input onChange={this.onContentChange} value={this.state.content} />
-          <input onChange={this.onUrlChange} value={this.state.cover_url} />
-          <button type="submit" onClick={this.onAddPost}>ADD</button> */}
-
           <form className="container" noValidate autoComplete="off">
             <TextField
               id="outlined-with-placeholder"
-              label="Title"
+              label="Title*"
               placeholder="Enter Title Here!"
               className="textField"
               margin="normal"
@@ -105,10 +104,10 @@ class AddPost extends Component {
             />
             <TextField
               id="outlined-full-width"
-              label="Content"
+              label="Content*"
               style={{ margin: 8 }}
               placeholder="Enter Content Here!"
-              helperText="Go Wild!"
+              helperText="Go Wild! (* = Required)"
               fullWidth
               margin="normal"
               variant="outlined"

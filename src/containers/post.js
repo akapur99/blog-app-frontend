@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { fetchPost, deletePost, updatePost } from '../actions/index';
 
@@ -25,27 +25,6 @@ class Post extends Component {
 
   componentDidMount(props) {
     this.props.fetchPost(this.props.match.params.postID);
-    console.log(props);
-  }
-
-  onTitleChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ title: event.target.value });
-  }
-
-  onTagsChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ tags: event.target.value });
-  }
-
-  onContentChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ content: event.target.value });
-  }
-
-  onUrlChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ cover_url: event.target.value });
   }
 
   deletePost = (id) => {
@@ -59,27 +38,87 @@ class Post extends Component {
       content: this.state.content,
       cover_url: this.state.cover_url,
     };
+
     this.props.updatePost(id, post);
     this.setState({
       isEditing: false,
     });
   }
 
+  handleChange = name => (event) => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   renderPost = () => {
     if (this.state.isEditing) {
       return (
-        <div className="edit">
-          <input className="editing" onChange={this.onTitleChange} value={this.state.title} />
-          <input className="editing" onChange={this.onUrlChange} value={this.state.cover_url} />
-          <input className="editing" onChange={this.onContentChange} value={this.state.content} />
-          <input className="editing" onChange={this.onTagsChange} value={this.state.tags} />
-          <button onClick={() => { this.deletePost(this.props.match.params.postID); }} type="submit">DELETE</button>
-          <button onClick={() => { this.updatePost(this.props.match.params.postID); }} type="submit">UPDATE</button>
+        <div className="addBar">
+          <form className="container" noValidate autoComplete="off">
+            <TextField
+              id="outlined-with-placeholder"
+              label="Title"
+              className="textField"
+              margin="normal"
+              variant="outlined"
+              value={this.state.title}
+              onChange={this.handleChange('title')}
+            />
+            <TextField
+              id="outlined-with-placeholder"
+              label="Tags"
+              className="textField"
+              margin="normal"
+              variant="outlined"
+              value={this.state.tags}
+              onChange={this.handleChange('tags')}
+            />
+            <TextField
+              id="outlined-textarea"
+              label="URL"
+              multiline
+              className="textField"
+              margin="normal"
+              variant="outlined"
+              value={this.state.cover_url}
+              onChange={this.handleChange('cover_url')}
+            />
+            <TextField
+              id="outlined-full-width"
+              label="Content"
+              style={{ margin: 8 }}
+              helperText="Go Wild!"
+              fullWidth
+              className="textField"
+              margin="normal"
+              variant="outlined"
+              value={this.state.content}
+              onChange={this.handleChange('content')}
+            />
+          </form>
+          <Button onClick={() => { this.updatePost(this.props.match.params.postID); }} variant="contained" color="primary" className="button">
+              Update
+          </Button>
+          <Button onClick={() => { this.deletePost(this.props.match.params.postID); }}
+            variant="contained"
+            color="secondary"
+            className="button"
+          >
+              Delete
+          </Button>
+          <Button onClick={() => { this.setState({ isEditing: false }); }}
+            variant="contained"
+            color="default"
+            className="button"
+          >
+              Cancel
+          </Button>
         </div>
+
       );
     } else if (this.props !== undefined) {
       const { currentPost } = this.props;
-      console.log(currentPost);
 
       return (
         <Card className="card">
@@ -88,11 +127,9 @@ class Post extends Component {
             title={currentPost.title}
             subheader={currentPost.tags}
           />
-          <CardMedia
-            className="media"
-            image="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg"
-            title=""
-          />
+          <CardContent>
+            <img className="postImg" alt="" src={currentPost.cover_url} />
+          </CardContent>
           <CardContent onFocus={() => { this.setState({ isEditing: true }); }}>
             <Typography component="p">
               {currentPost.content}
@@ -103,15 +140,6 @@ class Post extends Component {
             <Button onClick={() => { this.setState({ isEditing: true }); }} size="small">Edit</Button>
           </CardActions>
         </Card>
-      // <div>
-      //   <button onFocus={() => { this.setState({ isEditing: true }); }} type="submit">{this.props.currentPost.title}</button>
-      //   <button onFocus={() => { this.setState({ isEditing: true }); }} type="submit">{this.props.currentPost.tags}</button>
-      //   <button onFocus={() => { this.setState({ isEditing: true }); }} type="submit">{this.props.currentPost.content}</button>
-      //   <button onFocus={() => { this.setState({ isEditing: true }); }} type="submit">{this.props.currentPost.cover_url}</button>
-      //   <button onClick={() => { this.deletePost(this.props.match.params.postID); }} type="submit">DELETE</button>
-      //   <button onClick={() => { this.updatePost(this.props.match.params.postID); }} type="submit">UPDATE</button>
-      // </div>
-
       );
     } else {
       return (

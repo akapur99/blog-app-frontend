@@ -10,10 +10,8 @@ export const ActionTypes = {
   UPDATE_POST: 'UPDATE_POST',
   CREATE_POST: 'CREATE_POST',
   DELETE_POST: 'DELETE_POST',
+  ERROR: 'ERROR',
 };
-
-// const fetchSuccess = data => (,
-// });
 
 export function fetchPosts() { /* axios get */
   return (dispatch) => {
@@ -23,6 +21,8 @@ export function fetchPosts() { /* axios get */
     // hit an error do something else!
       console.log('ERROR::: ');
       console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Fetching Posts!');
     });
   };
 }
@@ -40,21 +40,26 @@ export function createPost(post, history) { /* axios post */
       // history.push('/');
     }).catch((error) => {
       console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Creating Post!');
+      history.push('/');
     });
   };
 }
 
 export function updatePost(id, post) { /* axios put */
   const fields = {
-    title: post.title, contents: post.contents, tags: post.tags, cover_url: post.cover_url,
+    title: post.title, content: post.content, tags: post.tags, cover_url: post.cover_url,
   };
 
   return (dispatch) => {
     axios.put(`${ROOT_URL}/posts/${id}?${API_KEY}`, fields).then((response) => {
-      dispatch({ type: 'CREATE_POST', payload: { posts: response.data } });
+      dispatch({ type: 'UPDATE_POST', payload: { posts: response.data } });
       console.log(response);
     }).catch((error) => {
       console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Updating Post!');
     });
   };
 }
@@ -67,6 +72,8 @@ export function fetchPost(id) { /* axios get */
     }).catch((error) => {
     // hit an error do something else!
       console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Fetching Post!');
     });
   };
 }
@@ -75,11 +82,27 @@ export function deletePost(id, history) { /* axios delete */
   return (dispatch) => {
     axios.delete(`${ROOT_URL}/posts/${id}?${API_KEY}`).then((response) => {
       console.log(response);
-      dispatch({ type: 'DELETE_POST' });
+      dispatch({ type: 'DELETE_POST', payload: { posts: response.data } });
       history.push('/');
     }).catch((error) => {
       console.log('Error in fetching posts');
       console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Deleting Post!');
+    });
+  };
+}
+
+export function deletePostPrev(id) { /* axios delete */
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/posts/${id}?${API_KEY}`).then((response) => {
+      console.log(response);
+      dispatch({ type: 'DELETE_POST', payload: { posts: response.data } });
+    }).catch((error) => {
+      console.log('Error in fetching posts');
+      console.log(error);
+      dispatch({ type: 'ERROR', error });
+      alert('Error in Deleting Post!');
     });
   };
 }
