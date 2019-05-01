@@ -12,8 +12,32 @@ import { CardContent } from '@material-ui/core';
 
 
 class Preview extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      liked: false,
+    };
+  }
+
   deletePost = () => {
     this.props.deletePost();
+  }
+
+  renderLike = () => {
+    if (this.state.liked) {
+      return (
+        <IconButton onClick={() => { this.setState({ liked: false }); }} color="secondary" aria-label="Add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+      );
+    } else {
+      return (
+        <IconButton onClick={() => { this.setState({ liked: true }); }} aria-label="Add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+      );
+    }
   }
 
   render() {
@@ -30,9 +54,7 @@ class Preview extends Component {
           <img alt="" src={post.cover_url} />
         </CardContent>
         <CardActions className="actions" disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
-            <FavoriteIcon />
-          </IconButton>
+          {this.renderLike()}
           <Button size="small"><Link to={nlink}>View</Link></Button>
         </CardActions>
       </Card>

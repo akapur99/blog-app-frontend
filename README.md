@@ -12,6 +12,7 @@
 
 ### Extra Credit
 * Styling
+* Like posts on the main page (the heart button)!
 * Used Material UI (react components)
 * Placeholder Values for the
 * Input Validation
