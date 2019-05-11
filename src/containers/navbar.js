@@ -19,9 +19,6 @@ class Nav extends Component {
   }
 
   renderNavBar = () => {
-    console.log('ISSUE');
-    console.log(this.props);
-
     if (this.props.reduxState.auth.authenticated) {
       return (
         <nav>

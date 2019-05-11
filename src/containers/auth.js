@@ -7,23 +7,25 @@ import Button from '@material-ui/core/Button';
 import { signinUser, signupUser } from '../actions/index';
 
 
-class signinupUser extends Component {
+class Auth extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: '',
       password: '',
+      username: '',
     };
   }
 
     onSignUp = () => {
-      if (this.state.email === '' || this.state.password === '') {
+      if (this.state.email === '' || this.state.password === '' || this.state.username === '') {
         alert('You still have to fill out some fields...');
       } else {
         const user = {
           email: this.state.email,
           password: this.state.password,
+          username: this.state.username,
         };
         this.props.signupUser(user, this.props.history);
 
@@ -34,7 +36,7 @@ class signinupUser extends Component {
       }
     }
 
-    onSignIp = () => {
+    onSignIn = () => {
       if (this.state.email === '' || this.state.password === '') {
         alert('You still have to fill out some fields...');
       } else {
@@ -63,7 +65,7 @@ class signinupUser extends Component {
           <form className="container" noValidate autoComplete="off">
             <TextField
               id="outlined-with-placeholder"
-              label="Email*"
+              label="Email"
               placeholder="Enter Email Here!"
               className="textField"
               margin="normal"
@@ -81,11 +83,21 @@ class signinupUser extends Component {
               value={this.state.password}
               onChange={this.handleChange('password')}
             />
+            <TextField
+              id="outlined-with-placeholder"
+              label="User Name"
+              placeholder="Enter User Name Here"
+              className="textField"
+              margin="normal"
+              variant="outlined"
+              value={this.state.username}
+              onChange={this.handleChange('username')}
+            />
           </form>
           <Button onClick={this.onSignUp} variant="contained" color="primary" className="button">
               Sign Up
           </Button>
-          <Button onClick={this.onSignUp} variant="contained" color="secondary" className="button">
+          <Button onClick={this.onSignIn} variant="contained" color="secondary" className="button">
               Sign In
           </Button>
           <Button onClick={() => {
@@ -114,4 +126,4 @@ const mapStateToProps = state => (
 
 // react-redux glue -- outputs Container that know state in props
 // also with an optional HOC withRouter
-export default withRouter(connect(mapStateToProps, { signinUser, signupUser })(signinupUser));
+export default withRouter(connect(mapStateToProps, { signinUser, signupUser })(Auth));

@@ -126,6 +126,10 @@ class Post extends Component {
             onFocus={() => { this.setState({ isEditing: true }); }}
             title={currentPost.title}
             subheader={currentPost.tags}
+            content={currentPost.username}
+          />
+          <CardHeader
+            subheader={currentPost.username}
           />
           <CardContent>
             <img className="postImg" alt="" src={currentPost.cover_url} />

@@ -8,7 +8,7 @@ import Nav from '../containers/navbar';
 import AddPost from '../containers/newpost';
 import Post from '../containers/post';
 import Posts from '../containers/posts';
-import signinupUser from '../containers/signinupUser';
+import signinupUser from '../containers/auth';
 import RequireAuth from '../containers/requireAuth';
 
 

@@ -3,8 +3,6 @@ import axios from 'axios';
 
 // const ROOT_URL = 'https://cs52-abhi-blog.herokuapp.com/api';
 const ROOT_URL = 'http://localhost:9090/api';
-// const ROOT_URL = 'https://cs52-blog.herokuapp.com/api';
-// const API_KEY = '?key=abhi_kapur';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -63,7 +61,6 @@ export function createPost(post, history) { /* axios post */
         dispatch({ type: 'CREATE_POST', payload: { posts: response.data } });
         console.log(response);
         history.push('/');
-      // history.push('/');
       }).catch((error) => {
         console.log(error);
         dispatch({ type: 'ERROR', error });
@@ -74,10 +71,6 @@ export function createPost(post, history) { /* axios post */
 }
 
 export function updatePost(id, post) { /* axios put */
-  // const fields = {
-  //   title: post.title, content: post.content, tags: post.tags, cover_url: post.cover_url,
-  // };
-
   return (dispatch) => {
     axios.put(`${ROOT_URL}/posts/${id}`,
       post,
@@ -126,9 +119,9 @@ export function deletePost(id, history) { /* axios delete */
 }
 
 
-export function signinUser({ email, password }, history) {
+export function signinUser({ email, password, username }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/signin`, { email, password, username })
       .then((response) => {
         dispatch({ type: ActionTypes.AUTH_USER });
         localStorage.setItem('token', response.data.token);
@@ -137,15 +130,15 @@ export function signinUser({ email, password }, history) {
       }).catch((error) => {
         console.log(error);
         dispatch(authError(`Sign In Failed: ${error.response.data}`));
-        alert('Error in Creating Post!');
+        alert('Sign In Failed!');
       });
   };
 }
 
 
-export function signupUser({ email, password }, history) {
+export function signupUser({ email, password, username }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { email, password, username })
       .then((response) => {
         dispatch({ type: ActionTypes.AUTH_USER });
         localStorage.setItem('token', response.data.token);
@@ -154,7 +147,7 @@ export function signupUser({ email, password }, history) {
       }).catch((error) => {
         console.log(error);
         dispatch(authError(`Sign Up Failed: ${error.response.data}`));
-        alert('Error in Creating Post!');
+        alert('Sign Up Failed!');
       });
   };
 }

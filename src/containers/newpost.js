@@ -10,6 +10,7 @@ import { createPost } from '../actions/index';
 class AddPost extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     this.state = {
       title: '',
@@ -34,6 +35,7 @@ class AddPost extends Component {
           tags: this.state.tags,
           content: this.state.content,
           cover_url: u,
+          author: this.props.state.author,
         };
         this.props.createPost(post, this.props.history);
 

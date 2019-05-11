@@ -73,3 +73,17 @@ justify-content: center;
 a {
     text-decoration: none;
 }
+
+.addBar {
+    display: flex;
+    flex-flow: column nowrap; 
+    justify-content: space-around;
+    align-items: center;
+
+    form {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        justify-self: center;
+    }
+}
