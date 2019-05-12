@@ -43,12 +43,13 @@ class Preview extends Component {
   render() {
     const { post } = this.props;
     const nlink = `/posts/${post.id}`;
+    const subhead = `${post.username} | Tags: ${post.tags}`;
 
     return (
       <Card className="card">
         <CardHeader
           title={post.title}
-          subheader={post.tags}
+          subheader={subhead}
         />
         <CardContent>
           <img alt="" src={post.cover_url} />

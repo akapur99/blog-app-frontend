@@ -37,6 +37,7 @@ class Post extends Component {
       tags: this.state.tags,
       content: this.state.content,
       cover_url: this.state.cover_url,
+      author: this.props.currentPost.author,
     };
 
     this.props.updatePost(id, post);
