@@ -110,7 +110,7 @@ export function deletePost(id, history) { /* axios delete */
         dispatch({ type: 'DELETE_POST', payload: { posts: response.data } });
         history.push('/');
       }).catch((error) => {
-        console.log('Error in fetching posts');
+        console.log('Error in Deleting post');
         console.log(error);
         dispatch({ type: 'ERROR', error });
         alert('Error in Deleting Post!');
