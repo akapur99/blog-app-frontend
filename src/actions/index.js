@@ -12,6 +12,7 @@ export const ActionTypes = {
   CREATE_POST: 'CREATE_POST',
   DELETE_POST: 'DELETE_POST',
   ERROR: 'ERROR',
+  GET_USERNAME: 'GET_USERNAME',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
@@ -148,6 +149,22 @@ export function signupUser({ email, password, username }, history) {
         console.log(error);
         dispatch(authError(`Sign Up Failed: ${error.response.data}`));
         alert('Sign Up Failed!');
+      });
+  };
+}
+
+export function getUser(id) { /* axios post */
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/auth`,
+      { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        console.log(response);
+        dispatch({ type: 'GET_USERNAME', payload: { username: response.data } });
+      }).catch((error) => {
+        console.log('Error in Getting username');
+        console.log(error);
+        dispatch({ type: 'ERROR', error });
+        alert('Error in Getting username!');
       });
   };
 }

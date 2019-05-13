@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 // some imports
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -8,7 +9,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { fetchPost, deletePost, updatePost } from '../actions/index';
+import {
+  getUser, fetchPost, deletePost, updatePost,
+} from '../actions/index';
 
 class Post extends Component {
   constructor(props) {
@@ -44,6 +47,26 @@ class Post extends Component {
     this.setState({
       isEditing: false,
     });
+  }
+
+  checkUser = (id, type) => {
+    this.props.getUser(id);
+    const { currentPost } = this.props;
+    if (this.props.username === currentPost.username) {
+      if (type === 'update') {
+        this.setState({
+          isEditing: true,
+          title: currentPost.title,
+          tags: currentPost.tags,
+          content: currentPost.content,
+          cover_url: currentPost.cover_url,
+        });
+      } else {
+        this.deletePost(id);
+      }
+    } else {
+      alert('You don\'t have the required permission to edit/delete this!!!');
+    }
   }
 
   handleChange = name => (event) => {
@@ -124,7 +147,6 @@ class Post extends Component {
       return (
         <Card className="card">
           <CardHeader
-            onFocus={() => { this.setState({ isEditing: true }); }}
             title={currentPost.title}
             subheader={currentPost.tags}
             content={currentPost.username}
@@ -135,22 +157,14 @@ class Post extends Component {
           <CardContent>
             <img className="postImg" alt="" src={currentPost.cover_url} />
           </CardContent>
-          <CardContent onFocus={() => { this.setState({ isEditing: true }); }}>
+          <CardContent>
             <Typography component="p">
               {currentPost.content}
             </Typography>
           </CardContent>
           <CardActions className="actions" disableActionSpacing>
-            <Button onClick={() => { this.deletePost(this.props.match.params.postID); }} size="small">Delete</Button>
-            <Button onClick={() => {
-              this.setState({
-                isEditing: true,
-                title: currentPost.title,
-                tags: currentPost.tags,
-                content: currentPost.content,
-                cover_url: currentPost.cover_url,
-              });
-            }}
+            <Button onClick={() => { this.checkUser(this.props.match.params.postID, 'delete'); }} size="small">Delete</Button>
+            <Button onClick={() => { this.checkUser(this.props.match.params.postID, 'update'); }}
               size="small"
             >Edit
             </Button>
@@ -176,8 +190,11 @@ class Post extends Component {
 const mapStateToProps = (reduxState) => {
   return {
     currentPost: reduxState.posts.current,
+    username: reduxState.auth.username,
   };
 };
 // enables this.props.currentPost
 // and this.props.fetchPost, this.props.deletePost, and this.props.updatePost
-export default connect(mapStateToProps, { fetchPost, deletePost, updatePost })(Post);
+export default connect(mapStateToProps, {
+  getUser, fetchPost, deletePost, updatePost,
+})(Post);

@@ -32,7 +32,7 @@ class Nav extends Component {
         <nav>
           <Button color="inherit"><Link to="/">My Super Awesome Blog</Link></Button>
           <Button color="inherit"><Link to="/posts/new">New Post</Link></Button>
-          <Button color="inherit"><Link to="/posts/auth">Sign In/Up</Link></Button>
+          <Button color="inherit"><Link to="/auth">Sign In/Up</Link></Button>
         </nav>
       );
     }
