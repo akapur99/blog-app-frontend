@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -5,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { createPost } from '../actions/index';
+import { uploadImage } from '../s3';
 
 
 class AddPost extends Component {
@@ -16,35 +18,51 @@ class AddPost extends Component {
       title: '',
       tags: '',
       content: '',
-      cover_url: '',
     };
   }
+
+    addPost = (url) => {
+      const post = {
+        title: this.state.title,
+        tags: this.state.tags,
+        content: this.state.content,
+        // eslint-disable-next-line no-undef
+        cover_url: url,
+        author: this.props.state.author,
+      };
+      this.props.createPost(post, this.props.history);
+
+      this.setState({
+        title: '',
+        tags: '',
+        content: '',
+      });
+    }
 
     onAddPost = () => {
       if (this.state.title === '' || this.state.content === '') {
         alert('You still have to fill out some fields...');
-      } else {
-        let u;
-        if (this.state.cover_url === '') {
-          u = 'https://images.unsplash.com/photo-1484312152213-d713e8b7c053?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
-        } else {
-          u = this.state.cover_url;
-        }
-        const post = {
-          title: this.state.title,
-          tags: this.state.tags,
-          content: this.state.content,
-          cover_url: u,
-          author: this.props.state.author,
-        };
-        this.props.createPost(post, this.props.history);
-
-        this.setState({
-          title: '',
-          tags: '',
-          content: '',
-          cover_url: '',
+      } else if (this.state.file) {
+        uploadImage(this.state.file).then((url) => {
+          // use url for content_url and
+          this.addPost(url);
+        }).catch((error) => {
+          // handle error
+          const u = 'https://images.unsplash.com/photo-1484312152213-d713e8b7c053?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
+          this.addPost(u);
+          console.log('ERROR IN SETTING URL', error);
         });
+      }
+    }
+
+    onImageUpload = (event) => {
+      const file = event.target.files[0];
+      // Handle null file
+      // Get url of the file and set it to the src of preview
+      console.log(file);
+
+      if (file !== undefined) {
+        this.setState({ preview: window.URL.createObjectURL(file), file });
       }
     }
 
@@ -57,6 +75,8 @@ class AddPost extends Component {
     render() {
       return (
         <div className="addBar">
+          <img id="preview" alt="preview" src={this.state.preview} />
+          <input type="file" name="coverImage" onChange={this.onImageUpload} />
           <form className="container" noValidate autoComplete="off">
             <TextField
               id="outlined-with-placeholder"
@@ -77,17 +97,6 @@ class AddPost extends Component {
               variant="outlined"
               value={this.state.tags}
               onChange={this.handleChange('tags')}
-            />
-            <TextField
-              id="outlined-textarea"
-              label="URL"
-              placeholder="Cover Image URL"
-              multiline
-              className="textField"
-              margin="normal"
-              variant="outlined"
-              value={this.state.cover_url}
-              onChange={this.handleChange('cover_url')}
             />
             <TextField
               id="outlined-full-width"
@@ -113,7 +122,6 @@ class AddPost extends Component {
               title: '',
               tags: '',
               content: '',
-              cover_url: '',
             });
           }}
             variant="contained"

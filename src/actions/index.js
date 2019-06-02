@@ -1,8 +1,9 @@
 /* eslint-disable no-alert */
 import axios from 'axios';
 
-const ROOT_URL = 'https://cs52-abhi-blog.herokuapp.com/api';
-// const ROOT_URL = 'http://localhost:9090/api';
+// export const ROOT_URL = 'https://cs52-abhi-blog.herokuapp.com/api';
+// export const ROOT_URL = 'http://localhost:9090/api';
+export const ROOT_URL = 'https://s3-ec.herokuapp.com/api';
 
 // keys for actiontypes
 export const ActionTypes = {
