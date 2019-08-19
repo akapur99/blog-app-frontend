@@ -9,8 +9,3 @@ Server-side code is [here](https://github.com/akapur99/crud-app-backend).
 Used material UI and added user authentication.
 
 ### Screenshots
-
-![](./src/img/Capture1.PNG)
-![](./src/img/Capture2.PNG)
-![](./src/img/Capture3.PNG)
-![](./src/img/Capture4.PNG)
