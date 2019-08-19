@@ -1,24 +1,11 @@
-# Lab 3
-## Abhimanyu Kapur
+# Front-End for a Web Blog
 
+**Tech Stack**: React, Redux
 
 ### Description
-* A fun and ~ simple ~ blog CRUD web app to be used by anyone!!!
+A simple Create, Write, Update and Delete (CRUD) Web App made for a full-stack web development course. 
+Server-side code is [here](https://github.com/akapur99/crud-app-backend).
 
-### What Worked (or Didn't)
-* Got a much better understanding of redux and life cycle, and flow of control
-* Planning components in advance and keeping it simple was helpful
-* What didn't work was my understanding of reducers initially
-
-### Extra Credit
-* Styling
-* Like posts on the main page (the heart button)!
-* Used Material UI (react components)
-* Placeholder Values for the
-* Input Validation
-* Errors Display
-* Default image if user doesn't input URL 
-* Cancel/Reset Buttons when adding/editing posts
 
 ### Screenshots
 
